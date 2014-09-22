@@ -15,8 +15,7 @@ module.exports = function (grunt) {
   // Time how long tasks take. Can help when optimizing build times
   require('time-grunt')(grunt);
 
-  var lrSnipped = require('connect-livereload')({ port: LIVERELOAD_PORT });
-  var mountFolder = function(connect, diir) {
+  var mountFolder = function(connect, dir) {
     return connect.static(require('path').resolve(dir));
   };
 
@@ -91,9 +90,6 @@ module.exports = function (grunt) {
           middleware: function (connect) {
             return [
               proxySnippet,
-              lrSnippet,
-              mountFolder(connect, '.tmp'),
-              mountFolder(connect, yeomanConfig.app),
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
