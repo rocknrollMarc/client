@@ -7,10 +7,13 @@ Rails.application.routes.draw do
     resources :shares
   end
 
+  scope '/api' do
   devise_for :users,
     :controllers => {
-      :omniauth_callbacks => "users/omniauth_callbacks" 
+      :omniauth_callbacks => "users/omniauth_callbacks",
+      registrations: "users/registrations"
   }
+  end
 
   devise_scope :user do
     get '/api/current_user' => 'users/sessions#show_current_user', as: "show_current_user"

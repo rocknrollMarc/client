@@ -2,8 +2,10 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   respond_to :json  
   def create
+    # Create the user
     build_resource(sign_up_params)
 
+    # Try to save them
     if resource.save
       sign_in resource
       render status: 200,
@@ -16,6 +18,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
           }
       }
     else
+      # Otherwise fail
       render status: :unprocessable_entity,
         json: {
           success: false,
